@@ -1,0 +1,9 @@
+{
+  "name": "7セグ 000 Watcher",
+  "short_name": "000 Watcher",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0b0d",
+  "theme_color": "#111111",
+  "lang": "ja"
+}
