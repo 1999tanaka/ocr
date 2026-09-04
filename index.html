@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#111111">
   <title>7セグ 000 Watcher</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 <main class="app">
@@ -35,6 +35,8 @@
 
   <section class="panel settings">
     <h2>調整</h2>
+    <label>数字部分の幅 <output id="digitWidthOut">78%</output><input id="digitWidth" type="range" min="55" max="100" value="78"></label>
+    <p class="note">表示が「123km」のような場合、枠全体のうち左側何%を3桁として読むかを調整します。</p>
     <label>しきい値 <output id="thresholdOut">125</output><input id="threshold" type="range" min="20" max="235" value="125"></label>
     <label>点灯タイプ
       <select id="polarity"><option value="bright">明るいセグメント</option><option value="dark">暗いセグメント</option></select>
@@ -45,8 +47,8 @@
     <details><summary>デバッグ表示</summary><canvas id="debug" width="480" height="180"></canvas></details>
   </section>
 
-  <p class="note">監視中は画面を開いたままにしてください。スマホで別アプリへ移動するとカメラ解析が停止する場合があります。</p>
+  <p class="note">起動直後の約2.5秒は判定せず、同じ3桁が4回連続したときだけ有効な値として扱います。</p>
 </main>
-<script src="app.js"></script>
+<script src="app-v2.js?v=3"></script>
 </body>
 </html>
