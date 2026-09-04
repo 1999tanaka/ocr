@@ -11,7 +11,7 @@
 <body>
 <main class="app">
   <h1>数字 0 Watcher</h1>
-  <p class="sub">1〜4桁の数字表示を1つの枠でOCRし、値が0になったら通知します。</p>
+  <p class="sub">1〜4桁の数字表示を1つの枠でOCRし、値が0になったら通知します。現在は精度優先モードです。</p>
 
   <section class="panel">
     <div id="stage" class="stage">
@@ -48,8 +48,8 @@
     <details><summary>OCRに渡している画像</summary><canvas id="debug" width="480" height="140"></canvas></details>
   </section>
 
-  <p class="note">自前の7セグ判定は使わず、数字だけに限定したTesseract.js OCRで認識します。約320ms間隔でOCRし、高信頼度の結果はすぐ反映します。</p>
+  <p class="note">精度優先モードでは、同じ切り出し画像から複数の前処理画像を作ってOCRし、結果同士と直近約1.8秒の履歴を照合してから値を確定します。そのため以前より表示更新は遅くなります。</p>
 </main>
-<script src="app-v6.js?v=1"></script>
+<script src="app-v7.js?v=1"></script>
 </body>
 </html>
