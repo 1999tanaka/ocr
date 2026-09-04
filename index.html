@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <title>7セグ 000 Watcher</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <h1>7セグ 000 Watcher</h1>
+  <p class="sub">指定エリアの3桁7セグ表示を端末内で認識し、000で通知します。</p>
+
+  <section class="panel">
+    <div id="stage" class="stage">
+      <video id="video" autoplay playsinline muted></video>
+      <div id="roi" class="roi">
+        <span>認識エリア</span>
+        <i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i>
+      </div>
+    </div>
+    <div class="buttons">
+      <button id="start" class="primary">カメラ開始</button>
+      <button id="stop" disabled>停止</button>
+      <button id="notify">通知を許可</button>
+    </div>
+  </section>
+
+  <section class="panel result">
+    <div><small>認識値</small><strong id="value">---</strong></div>
+    <div><small>状態</small><b id="status">停止中</b></div>
+  </section>
+
+  <section class="panel settings">
+    <h2>調整</h2>
+    <label>しきい値 <output id="thresholdOut">125</output><input id="threshold" type="range" min="20" max="235" value="125"></label>
+    <label>点灯タイプ
+      <select id="polarity"><option value="bright">明るいセグメント</option><option value="dark">暗いセグメント</option></select>
+    </label>
+    <label>000確定回数 <output id="confirmOut">3</output><input id="confirm" type="range" min="1" max="10" value="3"></label>
+    <label><input id="sound" type="checkbox" checked> 音</label>
+    <label><input id="vibrate" type="checkbox" checked> 振動</label>
+    <details><summary>デバッグ表示</summary><canvas id="debug" width="480" height="180"></canvas></details>
+  </section>
+
+  <p class="note">監視中は画面を開いたままにしてください。スマホで別アプリへ移動するとカメラ解析が停止する場合があります。</p>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
