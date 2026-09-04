@@ -4,23 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#111111">
-  <title>7セグ 000 Watcher</title>
+  <title>数字 0 Watcher</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <main class="app">
-  <h1>7セグ 000 Watcher</h1>
-  <p class="sub">各桁を個別指定し、数字を認識して000で通知します。</p>
+  <h1>数字 0 Watcher</h1>
+  <p class="sub">1〜4桁の数字表示を1つの枠でOCRし、値が0になったら通知します。</p>
 
   <section class="panel">
     <div id="stage" class="stage">
       <video id="video" autoplay playsinline muted></video>
-      <div class="roi digit-roi r1" data-digit="1" style="left:47%;top:54%;width:7.2%;height:19%"><span>1桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
-      <div class="roi digit-roi r2" data-digit="2" style="left:54.5%;top:54%;width:7.2%;height:19%"><span>2桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
-      <div class="roi digit-roi r3" data-digit="3" style="left:62%;top:54%;width:7.2%;height:19%"><span>3桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
+      <div id="roi" class="roi" style="left:42%;top:52%;width:30%;height:21%">
+        <span>1〜4桁の数字</span>
+        <i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i>
+      </div>
     </div>
-    <p class="note">各枠を数字1文字だけに合わせてください。</p>
+    <p class="note">数字部分全体を1つの枠で囲んでください。最大4桁分の幅で囲んでおけば、実際の表示が1桁・2桁・3桁でもそのまま認識します。</p>
     <div class="buttons">
       <button id="start" class="primary">カメラ開始</button>
       <button id="stop" disabled>停止</button>
@@ -35,21 +36,20 @@
 
   <section class="panel settings">
     <h2>調整</h2>
-    <label>判定感度 <output id="thresholdOut">125</output><input id="threshold" type="range" min="20" max="235" value="125"></label>
     <label>表示タイプ
       <select id="polarity"><option value="auto" selected>自動</option><option value="dark">暗い数字 / 明るい背景</option><option value="bright">明るい数字 / 暗い背景</option></select>
     </label>
-    <label>000確定回数 <output id="confirmOut">3</output><input id="confirm" type="range" min="1" max="10" value="3"></label>
+    <label>0確定回数 <output id="confirmOut">3</output><input id="confirm" type="range" min="1" max="10" value="3"></label>
     <label><input id="sound" type="checkbox" checked> 音</label>
     <label><input id="vibrate" type="checkbox" checked> 振動</label>
     <label><input id="flash" type="checkbox" checked> フラッシュ点滅</label>
     <button id="flashTest" disabled>フラッシュをテスト</button>
     <p id="flashStatus" class="note">カメラ開始後にフラッシュ対応状況を確認します。</p>
-    <details><summary>各桁の認識状態</summary><canvas id="debug" width="480" height="160"></canvas></details>
+    <details><summary>OCRに渡している画像</summary><canvas id="debug" width="480" height="140"></canvas></details>
   </section>
 
-  <p class="note">フラッシュ通知はAndroid Chrome系で、背面カメラがtorch制御に対応している場合に使えます。</p>
+  <p class="note">自前の7セグ判定は使わず、数字だけに限定したTesseract.js OCRで認識します。約320ms間隔でOCRし、高信頼度の結果はすぐ反映します。</p>
 </main>
-<script src="app-v5.js?v=2"></script>
+<script src="app-v6.js?v=1"></script>
 </body>
 </html>
