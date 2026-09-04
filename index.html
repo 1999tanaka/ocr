@@ -11,7 +11,7 @@
 <body>
 <main class="app">
   <h1>7セグ 000 Watcher</h1>
-  <p class="sub">各桁を個別指定し、高速7セグ判定＋汎用OCR補助で認識します。</p>
+  <p class="sub">各桁を個別指定し、数字を認識して000で通知します。</p>
 
   <section class="panel">
     <div id="stage" class="stage">
@@ -20,7 +20,7 @@
       <div class="roi digit-roi r2" data-digit="2" style="left:54.5%;top:54%;width:7.2%;height:19%"><span>2桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
       <div class="roi digit-roi r3" data-digit="3" style="left:62%;top:54%;width:7.2%;height:19%"><span>3桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
     </div>
-    <p class="note">各枠を数字1文字だけに合わせてください。内部では3桁を十分に離して並べ直してから汎用OCRにも渡すため、実物の桁間が狭くても影響しにくくなっています。</p>
+    <p class="note">各枠を数字1文字だけに合わせてください。</p>
     <div class="buttons">
       <button id="start" class="primary">カメラ開始</button>
       <button id="stop" disabled>停止</button>
@@ -42,11 +42,14 @@
     <label>000確定回数 <output id="confirmOut">3</output><input id="confirm" type="range" min="1" max="10" value="3"></label>
     <label><input id="sound" type="checkbox" checked> 音</label>
     <label><input id="vibrate" type="checkbox" checked> 振動</label>
+    <label><input id="flash" type="checkbox" checked> フラッシュ点滅</label>
+    <button id="flashTest" disabled>フラッシュをテスト</button>
+    <p id="flashStatus" class="note">カメラ開始後にフラッシュ対応状況を確認します。</p>
     <details><summary>各桁の認識状態</summary><canvas id="debug" width="480" height="160"></canvas></details>
   </section>
 
-  <p class="note">高速判定は約80ms周期。汎用OCR（Tesseract.js）は約450msごとに補助判定し、数字のみ・3桁専用に制限しています。</p>
+  <p class="note">フラッシュ通知はAndroid Chrome系で、背面カメラがtorch制御に対応している場合に使えます。</p>
 </main>
-<script src="app-v5.js?v=1"></script>
+<script src="app-v5.js?v=2"></script>
 </body>
 </html>
