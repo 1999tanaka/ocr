@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <title>WebGPU OCR 0 Watcher</title>
+  <link rel="stylesheet" href="style.css?v=6">
+</head>
+<body>
+<main class="app">
+  <h1>WebGPU OCR 0 Watcher</h1>
+  <p class="sub">PC向け。Transformers.js + TrOCRをWebGPUで動かし、1〜4桁の数字表示を認識します。</p>
+
+  <section class="panel">
+    <div id="stage" class="stage">
+      <video id="video" autoplay playsinline muted></video>
+      <div id="roi" class="roi" style="left:42%;top:52%;width:30%;height:21%">
+        <span>1〜4桁の数字</span>
+        <i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i>
+      </div>
+    </div>
+    <p class="note">最大4桁分を1つの枠で囲んでください。1〜4桁の表示を自動で読み取ります。</p>
+    <div class="buttons">
+      <button id="start" class="primary">カメラ開始</button>
+      <button id="stop" disabled>停止</button>
+      <button id="notify">通知を許可</button>
+    </div>
+  </section>
+
+  <section class="panel result">
+    <div><small>認識値</small><strong id="value">---</strong></div>
+    <div><small>状態</small><b id="status">WebGPU確認中…</b></div>
+  </section>
+
+  <section class="panel settings">
+    <h2>WebGPU / OCR</h2>
+    <p id="gpuStatus" class="note">WebGPUを確認しています…</p>
+    <button id="loadModel">WebGPUモデルを読み込む</button>
+    <p id="modelStatus" class="note">未読み込み</p>
+    <label>表示タイプ
+      <select id="polarity"><option value="auto" selected>自動</option><option value="dark">暗い数字 / 明るい背景</option><option value="bright">明るい数字 / 暗い背景</option></select>
+    </label>
+    <label>0確定回数 <output id="confirmOut">3</output><input id="confirm" type="range" min="1" max="10" value="3"></label>
+    <label><input id="sound" type="checkbox" checked> 音</label>
+    <label><input id="vibrate" type="checkbox" checked> 振動</label>
+    <label><input id="flash" type="checkbox" checked> フラッシュ点滅</label>
+    <button id="flashTest" disabled>フラッシュをテスト</button>
+    <p id="flashStatus" class="note">カメラ開始後にフラッシュ対応状況を確認します。</p>
+    <details><summary>OCR入力画像</summary><canvas id="debug" width="480" height="140"></canvas></details>
+  </section>
+
+  <section class="panel">
+    <a href="./">通常版（Tesseract.js）へ戻る</a>
+  </section>
+
+  <p class="note">初回はTrOCRモデルのダウンロードに時間と通信量がかかります。モデル推論は対応ブラウザではWebGPUを使用します。</p>
+</main>
+<script type="module" src="app-webgpu.js?v=1"></script>
+</body>
+</html>
