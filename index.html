@@ -6,21 +6,21 @@
   <meta name="theme-color" content="#111111">
   <title>7セグ 000 Watcher</title>
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 <main class="app">
   <h1>7セグ 000 Watcher</h1>
-  <p class="sub">指定エリアの3桁7セグ表示を端末内で認識し、000で通知します。</p>
+  <p class="sub">3桁を1桁ずつ指定して認識し、000で通知します。</p>
 
   <section class="panel">
     <div id="stage" class="stage">
       <video id="video" autoplay playsinline muted></video>
-      <div id="roi" class="roi">
-        <span>認識エリア</span>
-        <i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i>
-      </div>
+      <div class="roi digit-roi r1" data-digit="1" style="left:47%;top:54%;width:7.2%;height:19%"><span>1桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
+      <div class="roi digit-roi r2" data-digit="2" style="left:54.5%;top:54%;width:7.2%;height:19%"><span>2桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
+      <div class="roi digit-roi r3" data-digit="3" style="left:62%;top:54%;width:7.2%;height:19%"><span>3桁目</span><i class="h tl"></i><i class="h tr"></i><i class="h bl"></i><i class="h br"></i></div>
     </div>
+    <p class="note">各枠を数字1文字だけに合わせてください。枠全体のドラッグで移動、四隅でサイズ変更できます。</p>
     <div class="buttons">
       <button id="start" class="primary">カメラ開始</button>
       <button id="stop" disabled>停止</button>
@@ -35,20 +35,18 @@
 
   <section class="panel settings">
     <h2>調整</h2>
-    <label>数字部分の幅 <output id="digitWidthOut">78%</output><input id="digitWidth" type="range" min="55" max="100" value="78"></label>
-    <p class="note">表示が「123km」のような場合、枠全体のうち左側何%を3桁として読むかを調整します。</p>
-    <label>しきい値 <output id="thresholdOut">125</output><input id="threshold" type="range" min="20" max="235" value="125"></label>
-    <label>点灯タイプ
-      <select id="polarity"><option value="bright">明るいセグメント</option><option value="dark">暗いセグメント</option></select>
+    <label>判定感度 <output id="thresholdOut">125</output><input id="threshold" type="range" min="20" max="235" value="125"></label>
+    <label>表示タイプ
+      <select id="polarity"><option value="auto" selected>自動</option><option value="dark">暗い数字 / 明るい背景</option><option value="bright">明るい数字 / 暗い背景</option></select>
     </label>
     <label>000確定回数 <output id="confirmOut">3</output><input id="confirm" type="range" min="1" max="10" value="3"></label>
     <label><input id="sound" type="checkbox" checked> 音</label>
     <label><input id="vibrate" type="checkbox" checked> 振動</label>
-    <details><summary>デバッグ表示</summary><canvas id="debug" width="480" height="180"></canvas></details>
+    <details><summary>各桁の認識状態</summary><canvas id="debug" width="480" height="160"></canvas></details>
   </section>
 
-  <p class="note">同じ3桁が4回連続したときだけ有効な値として扱います。</p>
+  <p class="note">高信頼度の値は即時反映し、曖昧なときだけ直近約0.3秒の結果で補正します。</p>
 </main>
-<script src="app-v2.js?v=4"></script>
+<script src="app-v4.js?v=1"></script>
 </body>
 </html>
